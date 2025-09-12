@@ -1,0 +1,78 @@
+
+{
+  "layer": "top",
+  "position": "top",
+  "height": 0,
+  "spacing": 0,
+  "margin-top": 12,
+  "margin-bottom": 5,
+  "margin-left": 200,
+  "margin-right": 200,
+    "modules-left": ["niri/workspaces"],
+    "modules-center": ["clock"],
+    "modules-right": [ "tray","backlight", "pulseaudio", "battery"],
+    "sway/scratchpad": {
+      "format": "󱂬 {count}"
+    },
+    "pulseaudio": {
+    	"format": "{volume}%"
+    },
+
+  "bluetooth": {
+    "format-on": " {controller_alias}",
+    "format-disabled": "",
+    "format-off": "󰂲",
+    "format-connected": " {device_alias}",
+    "format-connected-battery": " {icon} {device_alias}",
+    "tooltip-format-on": "{controller_address} {controller_address_type}",
+    "tooltip-format-off": "{controller_address} {controller_address_type}",
+    "tooltip-format-connected": "{device_address} {controller_alias}",
+    "tooltip-format-connected-battery": "{device_battery_percentage}% {device_address} {controller_alias}",
+    "format-icons": ["", "", "", "", ""],
+    "on-click-right": "footclient -e bluetoothctl"
+},
+    "backlight": {
+    "format": "{percent}%",
+    "format-icons": ["", "", "", "", "", "", "", "", ""],
+  },
+    "niri/workspaces": {
+      "format": "{index}"
+    },
+    "mpris": {
+    	"format": "{status_icon} {artist} - {title}",
+    	"format-stopped": "",
+    	"status-icons": {
+    		"paused": "⏸",
+    		"playing": "󰐊"
+    	},
+    	"interval": "0.1"
+    },
+    "clock": {
+      "format": "{:%H:%M %d/%m}",
+        "interval": 1,
+        "tooltip-format": "{:%A %d %B %Y}"
+    },
+    "tray": {
+    	"spacing": 12
+    },
+    "gamemode": {
+        "glyph": "   ",
+        "format": "{glyph}",
+        "use-icon": false,
+        "icon-spacing": 16
+    },
+    "memory": {
+        "format": "  {percentage}%",
+        "interval": 1
+    },
+    "cpu": {
+        "format": "  {usage}%",
+        "interval": 1
+    },
+    "battery": {
+    	"format": "{capacity}%",
+    	"format-charging": "{capacity}% ",
+    	"format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+    	"interval": 1
+    }
+}
