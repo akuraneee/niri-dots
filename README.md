@@ -7,3 +7,4 @@ To use it just copy .config to your config and intsall dependencies
 - niri
 - waybar
 - tofi 
+- swww
