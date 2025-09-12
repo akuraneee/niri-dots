@@ -8,3 +8,4 @@ To use it just copy .config to your config and intsall dependencies
 - waybar
 - tofi 
 - swww
+- fastfetch
