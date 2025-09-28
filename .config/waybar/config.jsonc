@@ -8,9 +8,9 @@
   "margin-bottom": 5,
   "margin-left": 200,
   "margin-right": 200,
-    "modules-left": ["niri/workspaces"],
+    "modules-left": ["niri/workspaces", "mpris"],
     "modules-center": ["clock"],
-    "modules-right": [ "tray","backlight", "pulseaudio", "battery"],
+    "modules-right": [ "tray","backlight", "pulseaudio", "battery", "bluetooth"],
     "sway/scratchpad": {
       "format": "󱂬 {count}"
     },
@@ -19,7 +19,7 @@
     },
 
   "bluetooth": {
-    "format-on": " {controller_alias}",
+    "format-on": "",
     "format-disabled": "",
     "format-off": "󰂲",
     "format-connected": " {device_alias}",
@@ -29,7 +29,7 @@
     "tooltip-format-connected": "{device_address} {controller_alias}",
     "tooltip-format-connected-battery": "{device_battery_percentage}% {device_address} {controller_alias}",
     "format-icons": ["", "", "", "", ""],
-    "on-click-right": "footclient -e bluetoothctl"
+    "on-click-right": "blueman-manager"
 },
     "backlight": {
     "format": "{percent}%",

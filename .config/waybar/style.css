@@ -71,7 +71,14 @@ window#waybar {
   color: #81a1c1;
 }
 
+#mpris {
+  padding: 4px;
+}
 
+#bluetooth {
+  padding: 4px;
+  margin-right: 14px;
+}
 
 .modules-left,
 .modules-right,
