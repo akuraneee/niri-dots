@@ -34,7 +34,7 @@ input {
     }
     repeat-delay 300
         repeat-rate 50
-    }     
+    } 
 }
 layer-rule {
     match namespace="swww-daemon"
@@ -72,11 +72,9 @@ layout {
 spawn-at-startup "waybar"
 spawn-at-startup "swww-daemon" 
 spawn-at-startup "swaync"
-spawn-at-startup "blueman-applet"
 //spawn-at-startup  "$HOME/.config/walls/toggle-walls.sh"
 spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 spawn-at-startup "gnome-keyring-daemon --start --components=secrets"
-spawn-at-startup "copyq"
 layer-rule {
     match namespace="waybar"
     match at-startup=true
@@ -144,7 +142,7 @@ binds {
     Mod+RETURN hotkey-overlay-title="Open a Terminal" { spawn "kitty"; }
     Mod+Z hotkey-overlay-title="Run aplication (tofi)" { spawn "bash" "-c" "tofi-drun --drun-launch=true || pkill tofi-drun"; }
     Mod+E { spawn "nautilus"; }
-    Mod+Shift+W { spawn "bash" "/home/akurane/.config/niri/scripts/wall-choose.sh"; }
+    Mod+Shift+W { spawn "bash" "~/.config/walls/wall-choose.sh"; }
     XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
     Mod+Alt+WheelScrollUp allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.02+"; }
@@ -155,8 +153,6 @@ binds {
     XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--device=intel_backlight" "set" "5%-" ; }
 
     Mod+Tab repeat=false { toggle-overview; }
-    
-    Mod+V { spawn "copyq" "toggle"; }
 
     Mod+Q { close-window; }
 
@@ -171,22 +167,16 @@ binds {
     Mod+Shift+J     { move-window-down-or-to-workspace-down; }
     Mod+Shift+K     { move-window-up-or-to-workspace-up; }
 
-    Mod+Ctrl+H { focus-monitor-previous; }
-    Mod+Ctrl+L { focus-monitor-next; }
-
-    Mod+Ctrl+Shift+H { move-window-to-monitor-previous; }
-    Mod+Ctrl+Shift+L { move-window-to-monitor-next; }
-
     Mod+Page_Down      { focus-workspace-down; }
     Mod+Page_Up        { focus-workspace-up; }
     Mod+Ctrl+Page_Down { move-column-to-workspace-down; }
     Mod+Ctrl+Page_Up   { move-column-to-workspace-up; }
-	Mod+Ctrl+U         { move-column-to-workspace-down; }
-    Mod+Ctrl+I         { move-column-to-workspace-up; }
+	Mod+Ctrl+L         { focus-monitor-next; }
+    Mod+Ctrl+H         { focus-monitor-previous; }
+    Mod+Shift+Ctrl+L   { move-column-to-monitor-previous; }
+    Mod+Shift+Ctrl+H   { move-column-to-monitor-next; }
 
 
-    Mod+Shift+Ctrl+U     { move-workspace-down; }
-    Mod+Shift+Ctrl+K      { move-workspace-up; }
 
     Mod+WheelScrollDown      cooldown-ms=150 { focus-column-right; }
     Mod+WheelScrollUp        cooldown-ms=150 { focus-column-left; }
@@ -233,10 +223,10 @@ binds {
     Mod+Shift+C { center-column; }
     Mod+Ctrl+C { center-visible-columns; }
 
-    Mod+Alt+L { set-column-width "-10%"; }
-    Mod+Alt+H { set-column-width "+10%"; }
-    Mod+Alt+K { set-window-height "-10%"; }
-    Mod+Alt+J { set-window-height "+10%"; }
+    Mod+Alt+J { set-column-width "-10%"; }
+    Mod+Alt+L { set-column-width "+10%"; }
+    Mod+Alt+I { set-window-height "-10%"; }
+    Mod+Alt+K { set-window-height "+10%"; }
 
     Mod+Space        { toggle-window-floating; }
     Mod+Shift+Space { switch-focus-between-floating-and-tiling; }
