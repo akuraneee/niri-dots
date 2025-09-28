@@ -15,7 +15,8 @@
       "format": "󱂬 {count}"
     },
     "pulseaudio": {
-    	"format": "{volume}%"
+    	"format": "{volume}%",
+      "on-click-right": "pavucontrol"
     },
 
   "bluetooth": {
@@ -42,8 +43,8 @@
     	"format": "{status_icon} {artist} - {title}",
     	"format-stopped": "",
     	"status-icons": {
-    		"paused": "⏸",
-    		"playing": "󰐊"
+    		"paused": "⏸"
+//    		"playing": "󰐊"
     	},
     	"interval": "0.1"
     },
