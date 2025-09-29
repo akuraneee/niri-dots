@@ -13,3 +13,7 @@ To use it just copy .config to your config and intsall dependencies
 - nm-applet
 - blueman
 - copyq
+- xdg-desktop-portal
+- xdg-desktop-portal-gtk
+- xdg-desktop-portal-gnome
+- polkit-gnome
