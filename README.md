@@ -17,3 +17,4 @@ To use it just copy .config to your config and intsall dependencies
 - xdg-desktop-portal-gtk
 - xdg-desktop-portal-gnome
 - polkit-gnome
+- xwayland-sattelite
