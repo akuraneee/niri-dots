@@ -1,19 +1,14 @@
 spawn-at-startup "xwayland-sattelite"
 
-
 environment {
-
-    ELECTRON_OZONE_PLATFORM_HINT "auto"
-    //QT_QPA_PLATFORMTHEME "qt6ct"
-    //QT_STYLE_OVERRIDE "kvantum"
-     GDK_SCALE "1.5"
+  ELECTRON_OZONE_PLATFORM_HINT "auto"
+  GDK_SCALE "1.5"
 }
 
 overview {
     zoom 0.3
     workspace-shadow {
         off
-
     }
 }
 
@@ -43,7 +38,6 @@ layer-rule {
 
 
 layout {
-    // Set gaps around windows in logical pixels.
     gaps 10
     background-color "transparent"
 
@@ -72,9 +66,11 @@ layout {
 spawn-at-startup "waybar"
 spawn-at-startup "swww-daemon" 
 spawn-at-startup "swaync"
-//spawn-at-startup  "$HOME/.config/walls/toggle-walls.sh"
+spawn-at-startup "nm-applet"
 spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 spawn-at-startup "gnome-keyring-daemon --start --components=secrets"
+spawn-at-startup "copyq"
+
 layer-rule {
     match namespace="waybar"
     match at-startup=true
@@ -135,58 +131,42 @@ draw-border-with-background false
 
 }
 
-
 binds {
+    XF86AudioRaiseVolume allow-when-locked=true      { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
+    XF86AudioLowerVolume allow-when-locked=true      { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
+    XF86AudioMute        allow-when-locked=true      { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+    XF86AudioMicMute     allow-when-locked=true      { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+    XF86MonBrightnessUp  allow-when-locked=true      { spawn "brightnessctl" "--device=intel_backlight" "set" "+5%" ; }
+    XF86MonBrightnessDown allow-when-locked=true     { spawn "brightnessctl" "--device=intel_backlight" "set" "5%-" ; }
 
-    Mod+Shift+Slash { show-hotkey-overlay; }
-    Mod+RETURN hotkey-overlay-title="Open a Terminal" { spawn "kitty"; }
-    Mod+Z hotkey-overlay-title="Run aplication (tofi)" { spawn "bash" "-c" "tofi-drun --drun-launch=true || pkill tofi-drun"; }
-    Mod+E { spawn "nautilus"; }
-    Mod+Shift+W { spawn "bash" "~/.config/walls/wall-choose.sh"; }
-    XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
-    Mod+Alt+WheelScrollUp allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.02+"; }
-    Mod+Alt+WheelScrollDown allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.02-"; }
-    XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
-    XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
-    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--device=intel_backlight" "set" "+5%" ; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--device=intel_backlight" "set" "5%-" ; }
+    //core aplications and hotkeys
+    Mod+Slash                                        { show-hotkey-overlay; }
+    Mod+Z { spawn "bash" "-c" "tofi-drun --drun-launch=true || pkill tofi-drun";  }
+    Mod+Shift+W hotkey-overlay-title="change wallpaper" { spawn "bash" "-c" "~/.config/walls/wall-choose.sh"; }
+    Mod+Tab repeat=false hotkey-overlay-title="overview" { toggle-overview; }
+    Mod+Q hotkey-overlay-title="close window"        { close-window; }
+    Mod+V hotkey-overlay-title="clipboard manager"   { spawn "copyq" "toggle"; }
 
-    Mod+Tab repeat=false { toggle-overview; }
+    //focus and windows moving
+    Mod+H              { focus-column-left; }
+    Mod+L              { focus-column-right; }
+    Mod+J              { focus-window-or-workspace-down; }
+    Mod+K              { focus-window-or-workspace-up; }
 
-    Mod+Q { close-window; }
-
-    Mod+H     { focus-column-left; }
-   	Mod+L     { focus-column-right; }
-
-    Mod+Shift+H     { move-column-left; }
-    Mod+Shift+L     { move-column-right; }
+    Mod+Shift+H        { move-column-left; }
+    Mod+Shift+L        { move-column-right; }
+    Mod+Shift+J        { move-window-down-or-to-workspace-down; }
+    Mod+Shift+K        { move-window-up-or-to-workspace-up; }
     
-    Mod+J           { focus-window-or-workspace-down; }
-    Mod+K           { focus-window-or-workspace-up; }
-    Mod+Shift+J     { move-window-down-or-to-workspace-down; }
-    Mod+Shift+K     { move-window-up-or-to-workspace-up; }
-
-    Mod+Page_Down      { focus-workspace-down; }
-    Mod+Page_Up        { focus-workspace-up; }
-    Mod+Ctrl+Page_Down { move-column-to-workspace-down; }
-    Mod+Ctrl+Page_Up   { move-column-to-workspace-up; }
-	Mod+Ctrl+L         { focus-monitor-next; }
+    Mod+Ctrl+L         { focus-monitor-next; }
     Mod+Ctrl+H         { focus-monitor-previous; }
     Mod+Shift+Ctrl+L   { move-column-to-monitor-previous; }
     Mod+Shift+Ctrl+H   { move-column-to-monitor-next; }
-
-
 
     Mod+WheelScrollDown      cooldown-ms=150 { focus-column-right; }
     Mod+WheelScrollUp        cooldown-ms=150 { focus-column-left; }
     Mod+Ctrl+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
     Mod+Ctrl+WheelScrollUp   cooldown-ms=150 { focus-workspace-up; }
-
-    Mod+Shift+WheelScrollDown      { move-column-right; }
-    Mod+Shift+WheelScrollUp        { move-column-left; }
-    Mod+Ctrl+Shift+WheelScrollDown { move-column-to-workspace-down; }
-    Mod+Ctrl+Shift+WheelScrollUp   { move-column-to-workspace-up; }
 
     Mod+1 { focus-workspace 1; }
     Mod+2 { focus-workspace 2; }
@@ -197,6 +177,7 @@ binds {
     Mod+7 { focus-workspace 7; }
     Mod+8 { focus-workspace 8; }
     Mod+9 { focus-workspace 9; }
+  
     Mod+Ctrl+1 { move-column-to-workspace 1; }
     Mod+Ctrl+2 { move-column-to-workspace 2; }
     Mod+Ctrl+3 { move-column-to-workspace 3; }
@@ -210,35 +191,34 @@ binds {
     Mod+BracketLeft  { consume-or-expel-window-left; }
     Mod+BracketRight { consume-or-expel-window-right; }
 
-    Mod+Comma  { consume-window-into-column; }
-    Mod+Period { expel-window-from-column; }
+    //window size abjusting  
+    Mod+Ctrl+R       { reset-window-height; }
+    Mod+D            { maximize-column; }
+    Mod+F            { fullscreen-window; }
 
-    Mod+R { switch-preset-column-width; }
-    Mod+Shift+R { switch-preset-window-height; }
-    Mod+Ctrl+R { reset-window-height; }
-    Mod+D { maximize-column; }
-    Mod+F { fullscreen-window; }
-
-    Mod+Ctrl+F { expand-column-to-available-width; }
-    Mod+Shift+C { center-column; }
-    Mod+Ctrl+C { center-visible-columns; }
-
-    Mod+Alt+J { set-column-width "-10%"; }
-    Mod+Alt+L { set-column-width "+10%"; }
-    Mod+Alt+I { set-window-height "-10%"; }
-    Mod+Alt+K { set-window-height "+10%"; }
-
+    Mod+Ctrl+F       { expand-column-to-available-width; }
+    Mod+Shift+C      { center-column; }
+    Mod+Ctrl+C       { center-visible-columns; }
     Mod+Space        { toggle-window-floating; }
-    Mod+Shift+Space { switch-focus-between-floating-and-tiling; }
+    Mod+Shift+Space  { switch-focus-between-floating-and-tiling; }
 
-    Mod+W { spawn "zen-browser"; }
-    Mod+X { spawn "obsidian"; }
-    Mod+T { spawn "keepassxc"; }
+    Mod+Alt+H        { set-column-width "-10%"; }
+    Mod+Alt+L        { set-column-width "+10%"; }
+    Mod+Alt+K        { set-window-height "-10%"; }
+    Mod+Alt+J        { set-window-height "+10%"; }
 
-    Mod+Shift+S { screenshot; }
-    Ctrl+Print { screenshot-screen; }
-    Alt+Print { screenshot-window; }
+    //regular apps
+    Mod+W            { spawn "zen-browser"; }
+    Mod+X            { spawn "obsidian"; }
+    Mod+E hotkey-overlay-title="run file manager" { spawn "nautilus"; }
+    Mod+RETURN hotkey-overlay-title="run a Terminal" { spawn "kitty"; }
+
+    //utils 
+    Mod+Shift+S      { screenshot; }
+    Ctrl+Print       { screenshot-screen; }
+    Alt+Print        { screenshot-window; }
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
-    Ctrl+Alt+Delete { quit; }
-    Mod+Shift+P { power-off-monitors; }
+    Ctrl+Alt+Delete  { quit; }
+    Mod+Shift+P      { power-off-monitors; }
 }
+
