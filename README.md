@@ -10,3 +10,6 @@ To use it just copy .config to your config and intsall dependencies
 - swww
 - fastfetch
 - swaync
+- nm-applet
+- blueman
+- copyq
