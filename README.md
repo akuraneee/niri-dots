@@ -18,3 +18,10 @@ To use it just copy .config to your config and intsall dependencies
 - xdg-desktop-portal-gnome
 - polkit-gnome
 - xwayland-sattelite
+
+## Nitch installing
+Just copy nitch binary to ```/bin/```
+
+```bash
+sudo cp ~/niri-dots/nitch /bin/
+```
