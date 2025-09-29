@@ -146,6 +146,9 @@ binds {
     Mod+Tab repeat=false hotkey-overlay-title="overview" { toggle-overview; }
     Mod+Q hotkey-overlay-title="close window"        { close-window; }
     Mod+V hotkey-overlay-title="clipboard manager"   { spawn "copyq" "toggle"; }
+    Mod+U hotkey-overlay-title="toggle dnd" { spawn "bash" "-c" "swaync-client --toggle-dnd"; }
+    Mod+Ctrl+V hotkey-overlay-title="run volume mixer" { spawn "pavucontrol"; }
+    Mod+N hotkey-overlay-title="open notification centre" { spawn "swaync-client" "-t"; }
 
     //focus and windows moving
     Mod+H              { focus-column-left; }

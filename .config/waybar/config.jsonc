@@ -10,7 +10,7 @@
   "margin-right": 200,
     "modules-left": ["niri/workspaces", "mpris"],
     "modules-center": ["clock"],
-    "modules-right": [ "tray","backlight", "pulseaudio", "battery", "bluetooth"],
+    "modules-right": [ "tray","backlight", "pulseaudio", "battery", "bluetooth", "custom/swaync"],
     "sway/scratchpad": {
       "format": "󱂬 {count}"
     },
@@ -75,5 +75,24 @@
     	"format-charging": "{capacity}% ",
     	"format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
     	"interval": 1
+    },
+    
+    "custom/swaync": {
+        "format": "{icon}",
+        "format-icons": {
+            "notification": "󰂚",
+            "none": "󰂜",
+            "dnd-notification": "󰂛",
+            "dnd-none": "󰂛",
+            "inhibited-notification": "󰂚",
+            "inhibited-none": "󰂜",
+            "dnd-inhibited-notification": "󰂛",
+            "dnd-inhibited-none": "󰂛"
+        },
+        "return-type": "json",
+        "exec": "swaync-client -swb",
+        "on-click": "swaync-client -t -sw",
+        "on-click-right": "swaync-client -d -sw",
+        "escape": true
     }
 }

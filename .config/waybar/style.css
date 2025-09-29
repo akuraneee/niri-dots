@@ -76,7 +76,11 @@ window#waybar {
 }
 
 #bluetooth {
-  padding: 4px;
+  padding-left: 4px;
+  margin-right: 14px;
+}
+
+#custom-swaync {
   margin-right: 14px;
 }
 
