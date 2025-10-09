@@ -41,6 +41,7 @@ layout {
     gaps 10
     background-color "transparent"
 
+
     center-focused-column "never"
     preset-column-widths {
         proportion 0.33333
@@ -70,6 +71,7 @@ spawn-at-startup "nm-applet"
 spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 spawn-at-startup "gnome-keyring-daemon --start --components=secrets"
 spawn-at-startup "copyq"
+spawn-at-startup "flatpak run com.github.wwmm.easyeffects"
 
 layer-rule {
     match namespace="waybar"
@@ -92,21 +94,30 @@ screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
 window-rule {
 
-    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    match app-id=r#"zen$"# title="^Picture-in-Picture$"
     open-floating true
 }
 
 window-rule {
-    geometry-corner-radius 12
+    geometry-corner-radius 14
     clip-to-geometry true
 }
 
 window-rule {
     match app-id="waybar"
     opacity 0.7
-    
 }
 
+
+window-rule {
+    opacity 0.90
+    blur {
+        on
+
+        radius 10
+        passes 3
+    }
+}
 
 
 window-rule {
@@ -126,9 +137,15 @@ draw-border-with-background false
     match app-id="zen"
     match app-id="tsuzuku"
     match app-id="obs-studio"
-    opacity 0.98
+    match app-id="org.telegram.desktop"
+    opacity 0.85
 
-
+    blur {
+        on
+        radius 8
+        passes 2
+        noise 0.0
+    }
 }
 
 binds {
@@ -149,6 +166,7 @@ binds {
     Mod+U hotkey-overlay-title="toggle dnd" { spawn "bash" "-c" "swaync-client --toggle-dnd"; }
     Mod+Ctrl+V hotkey-overlay-title="run volume mixer" { spawn "pavucontrol"; }
     Mod+N hotkey-overlay-title="open notification centre" { spawn "swaync-client" "-t"; }
+    Mod+B hotkey-overlay-title="toggle blur" { spawn "bash" "-c" "sh ~/.config/niri/scripts/toggle-blur.sh"; }
 
     //focus and windows moving
     Mod+H              { focus-column-left; }
@@ -224,4 +242,3 @@ binds {
     Ctrl+Alt+Delete  { quit; }
     Mod+Shift+P      { power-off-monitors; }
 }
-
