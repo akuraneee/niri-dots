@@ -1,6 +1,5 @@
 # niri-dots
 There are my dotfiles based on niri, i use it on cahcyos
-To use it just copy .config to your config and intsall dependencies
 # dependencies 
 - fish
 - kitty
@@ -18,10 +17,6 @@ To use it just copy .config to your config and intsall dependencies
 - xdg-desktop-portal-gnome
 - polkit-gnome
 - xwayland-sattelite
+- gtklock
 
-## Nitch installing
-Just copy nitch binary to ```/bin/```
 
-```bash
-sudo cp ~/niri-dots/nitch /bin/
-```
