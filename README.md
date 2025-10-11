@@ -18,5 +18,5 @@ There are my dotfiles based on niri, i use it on cahcyos
 - polkit-gnome
 - xwayland-sattelite
 - gtklock
-
+- wl-clipboard
 
