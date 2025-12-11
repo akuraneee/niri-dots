@@ -1,0 +1,104 @@
+* {
+  font-size: 15px;
+
+}
+window#waybar {
+    border-bottom: 1px solid #181825;
+    border-radius: 10px;
+}
+
+
+#clock,
+#tray,
+#battery,
+#cpu,
+#window,
+#memory,
+#network,
+#scratchpad,
+#temperature,
+#pulseaudio,
+#backlight {
+  background: transparent;
+  padding: 0px 0px;
+  border-radius: 6px;
+  margin: 0px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-right: 14px;
+}
+
+#workspaces {
+  margin-left: 10px;
+}
+
+#workspaces button {
+    background: transparent;
+    box-shadow: none;
+    border: none;
+    border-radius: 0; 
+    
+    color: #888888; 
+    font-size: 18px; 
+    padding: 0 1px; 
+    margin-right: 0px; 
+}
+
+#workspaces button.active {
+    background: transparent;
+    color: #ffffff; 
+    font-size: 20px;
+}
+
+#workspaces button:hover {
+    background-color: transparent; 
+    color: #c0c0c0;
+}
+
+#workspaces button.urgent {
+    background-color: transparent; 
+    color: #fb4934; 
+}
+
+#clock{
+  font-size: 16px;
+}
+
+#tray {
+  padding: 0px 4px;
+}
+
+#backlight {
+  color: #8fbcbb;
+}
+#pulseaudio {
+  color: #88c0d0;
+}
+
+#battery {
+  color: #81a1c1;
+}
+
+#mpris {
+  padding: 4px;
+}
+
+#bluetooth {
+  padding-left: 4px;
+  margin-right: 14px;
+}
+
+#custom-swaync {
+  margin-right: 17px;
+}
+
+#niri-window {
+  color: #9c9c9c
+}
+
+
+.modules-left,
+.modules-right,
+.modules-center {
+  padding: 4px 0px;
+}

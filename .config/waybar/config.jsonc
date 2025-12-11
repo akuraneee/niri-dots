@@ -1,0 +1,116 @@
+
+{
+  "layer": "top",
+  "position": "top",
+  "height": 0,
+  "spacing": 0,
+  "margin-top": 12,
+  "margin-bottom": 5,
+  "margin-left": 200,
+  "margin-right": 200,
+    "modules-left": ["niri/workspaces", "mpris"],
+    "modules-center": ["clock"],
+    "modules-right": ["niri/window", "tray","backlight", "pulseaudio", "battery", "bluetooth", "custom/swaync"],
+    "sway/scratchpad": {
+      "format": "󱂬 {count}"
+    },
+    "pulseaudio": {
+    	"format": "{volume}%",
+      "on-click-right": "pavucontrol"
+    },
+
+  "bluetooth": {
+    "format-on": "",
+    "format-disabled": "",
+    "format-off": "󰂲",
+    "format-connected": " {device_alias}",
+    "format-connected-battery": " {icon} {device_alias}",
+    "tooltip-format-on": "{controller_address} {controller_address_type}",
+    "tooltip-format-off": "{controller_address} {controller_address_type}",
+    "tooltip-format-connected": "{device_address} {controller_alias}",
+    "tooltip-format-connected-battery": "{device_battery_percentage}% {device_address} {controller_alias}",
+    "format-icons": ["", "", "", "", ""],
+    "on-click-right": "blueman-manager"
+},
+    "backlight": {
+    "format": "{percent}%",
+    "format-icons": ["", "", "", "", "", "", "", "", ""],
+  },
+    "niri/workspaces": {
+      "format": "{icon}",
+        "format-icons": {
+            "active": "●",
+            "default": "•"
+        },
+    },
+    "mpris": {
+    	"format": "{status_icon} {artist} - {title}",
+    	"format-stopped": "",
+      "ignored-players": ["firefox.instance_1_318"], 
+      "title-len": 35,
+    	"status-icons": {
+    		"paused": "⏸"
+//    		"playing": "󰐊"
+    	},
+    	"interval": "0.1"
+    },
+  "niri/window": {
+    // Формат отображения. {title} - сам заголовок окна.
+    // Вы можете добавить иконку или текст перед ним.
+    
+    "format": "<span>{title}</span>"
+    // Пример с иконкой (требуется Nerd Font)
+    // "format": "<span color='#6AA84F'></span> {title}", 
+    
+    // Правила перезаписи заголовков (опционально)
+    // Позволяет сокращать или изменять заголовки окон по регулярным выражениям.
+},
+    "clock": {
+      "format": "{:%H:%M %d/%m}",
+        "interval": 1,
+        "tooltip-format": "{:%A %d %B %Y}"
+    },
+    "tray": {
+    	"spacing": 12
+    },
+    "gamemode": {
+        "glyph": "   ",
+        "format": "{glyph}",
+        "use-icon": false,
+        "icon-spacing": 16
+    },
+    "memory": {
+        "format": "  {percentage}%",
+        "interval": 1
+    },
+    "cpu": {
+        "format": "  {usage}%",
+        "interval": 1
+    },
+    "battery": {
+    	"format": "{capacity}%",
+    	"format-charging": "{capacity}% ",
+    	"format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+    	"interval": 1
+    },
+    
+    "custom/swaync": {
+        "format": "{icon}",
+        "format-icons": {
+            "notification": "󰂚",
+            "none": "󰂜",
+            "dnd-notification": "󰂛",
+            "dnd-none": "󰂛",
+            "inhibited-notification": "󰂚",
+            "inhibited-none": "󰂜",
+            "dnd-inhibited-notification": "󰂛",
+            "dnd-inhibited-none": "󰂛"
+        },
+        "return-type": "json",
+        "exec": "swaync-client -swb",
+        "on-click": "swaync-client -t -sw",
+        "on-click-right": "swaync-client -d -sw",
+        "escape": true
+    }
+
+}
