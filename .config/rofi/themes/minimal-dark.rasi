@@ -1,0 +1,61 @@
+
+* {
+    font: "JetBrains Mono 12";
+    foreground: #e0e0e0;
+    background: #000000ee;
+    border-color: #323232;
+    selected: #ffffff;
+}
+
+window {
+    location: center;
+    width: 600px;
+    height: 380px;
+    border: 2px solid @border-color;
+    padding: 20px;
+    background-color: @background;
+}
+
+mainbox {
+    spacing: 25px;
+    background-color: @background;
+}
+
+inputbar {
+    padding: 8px;
+    border: 2px solid @border-color;
+    background-color: @background;
+}
+
+prompt {
+    text: "> ";
+}
+
+entry {
+    background-color: @background;
+    text-color: @foreground;
+}
+
+listview {
+    columns: 1;
+    lines: 10;
+    spacing: 10px;
+    fixed-height: true;
+    background-color: @background;
+}
+
+element {
+    padding: 4px;
+    background-color: @background;
+    text-color: @foreground;
+}
+
+element selected {
+    background-color: #ffffff18;
+    text-color: @selected;
+}
+
+element-text {
+    background-color: transparent;
+    text-color: inherit;
+}

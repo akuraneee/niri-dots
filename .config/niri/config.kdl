@@ -5,6 +5,8 @@ environment {
   GDK_SCALE "1.5"
 }
 
+prefer-no-csd
+
 overview {
     zoom 0.3
     workspace-shadow {
@@ -78,14 +80,16 @@ layout {
     }
     
 
-    border {
-        width 2.2
+/-    border {
+        width 2
         active-color "#717191"
         inactive-color "#434c5e"
 //        active-color "#434c5e"
         urgent-color "#bf616a"
     }
-
+    border {
+        off
+    }
 
     tab-indicator {
         gap 3
@@ -94,6 +98,39 @@ layout {
 
 }
 
+window-rule {
+    match is-active=true
+
+    shadow {
+        on
+        color "#717191" 
+        softness 0     
+        spread 2      
+        offset x=0 y=0
+    }
+}
+
+/-window-rule {
+    match is-active=false
+
+    shadow {
+        on
+        color "#434c5e" 
+        softness 0
+        spread 3
+        offset x=0 y=0
+    }
+}
+/-window-rule {
+    match is-active=true
+
+    shadow {
+        on
+        softness 10
+        spread 10
+        offset x=0 y=5
+    }
+}
 
 
 spawn-at-startup "waybar"
@@ -117,14 +154,15 @@ layer-rule {
     shadow {
         on
         softness 10
-        spread 10
-        offset x=0 y=5
+        spread 5
+        offset x=0 y=3
     }
 
     geometry-corner-radius 10
-    }
+}
 
-prefer-no-csd
+
+
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
 
 window-rule {
@@ -180,8 +218,7 @@ animations {
 
 
 window-rule {
-draw-border-with-background false
-
+   draw-border-with-background false
 //    match app-id="code"
     match app-id="kitty"
 //    match app-id="vesktop"
@@ -198,8 +235,9 @@ draw-border-with-background false
 //    match app-id="obs-studio"
 //    match app-id="org.telegram.desktop"
     opacity 0.99
-
+    clip-to-geometry true
 }
+
 
 binds {
     XF86AudioRaiseVolume allow-when-locked=true      { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.02+"; }
