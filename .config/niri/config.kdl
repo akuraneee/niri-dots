@@ -310,7 +310,7 @@ binds {
     Mod+BracketRight { consume-or-expel-window-right; }
 
     //window size abjusting  
-    Mod+Ctrl+R       { reset-window-height; } 
+    Mod+Alt+R       { reset-window-height; } 
 
     Mod+D            { maximize-column; }
     Mod+F            { fullscreen-window; }
@@ -342,5 +342,4 @@ binds {
     Alt+Print        { screenshot-window; }
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
     Ctrl+Alt+Delete  { quit; }
-    Mod+Shift+P      { power-off-monitors; }
 }
