@@ -143,8 +143,7 @@ spawn-at-startup "gnome-keyring-daemon --start --components=secrets"
 spawn-at-startup "copyq"
 spawn-at-startup "flatpak run com.github.wwmm.easyeffects"
 spawn-at-startup "flatpak run com.github.zocker_160.SyncThingy"
-spawn-at-startup "curlftpfs ftp://akurane:pwbwhhit@192.168.0.102/ ~/nas_ftp -o allow_other"
-
+spawn-at-startup "steam"
 layer-rule {
     match namespace="waybar"
     match at-startup=true
