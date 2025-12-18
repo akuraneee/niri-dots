@@ -1,7 +1,6 @@
 #!/bin/sh
 # Select wallpaper file
-FILE=$(zenity --file-selection --title="Select wallpaper" --file-filter="Images and Videos | *.jpg *.png *.gif *.mp4 *.webm *.mkv")
-
+FILE=$(yad --file --title="Select wallpaper" --file-filter="Images | *.jpg *.jpeg *.png *.gif" --file-filter="Videos | *.mp4 *.webm *.mkv *.avi *.mov" --file-filter="All files | *")
 if [ -n "$FILE" ]; then
     # Create ~/Pictures/Wallpapers folder if it doesn't exist
     WALLPAPER_DIR="$HOME/Pictures/Wallpapers"
@@ -70,7 +69,7 @@ if [ -n "$FILE" ]; then
             ;;
         *)
             echo "Unsupported file format: $EXTENSION"
-            zenity --error --text="Unsupported file format"
+            yad --error --text="Unsupported file format"
             ;;
     esac
 else

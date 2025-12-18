@@ -134,8 +134,8 @@ window-rule {
 
 
 spawn-at-startup "waybar"
-//spawn-at-startup "swww-daemon" 
-spawn-at-startup "bash" "-c" "$HOME/.config/niri/scripts/restore-wall.sh"
+spawn-at-startup "swww-daemon" 
+//spawn-at-startup "bash" "-c" "$HOME/.config/niri/scripts/restore-wall.sh"
 spawn-at-startup "swaync"
 spawn-at-startup "nm-applet"
 spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
@@ -154,10 +154,10 @@ layer-rule {
         on
         softness 10
         spread 5
-        offset x=0 y=3
+        offset x=0 y=2
     }
 
-    geometry-corner-radius 10
+    geometry-corner-radius 20
 }
 
 
@@ -248,8 +248,10 @@ binds {
 
     //core aplications and hotkeys
     Mod+Slash                                        { show-hotkey-overlay; }
-    Mod+Z { spawn "bash" "-c" "tofi-drun --drun-launch=true || pkill tofi-drun";  }
-    Mod+Shift+W hotkey-overlay-title="change wallpaper" { spawn "sh" "-c" "~/.config/niri/scripts/wall-choose.sh"; }
+//    Mod+Z { spawn "bash" "-c" "tofi-drun --drun-launch=true || pkill tofi-drun";  }
+    Mod+Z { spawn "sh" "-c" "vicinae toggle"; }
+//    Mod+Shift+W hotkey-overlay-title="change wallpaper" { spawn "sh" "-lc" "$HOME/.config/niri/scripts/wall-choose.sh"; }
+    Mod+Shift+W { spawn "waypaper"; }
     Mod+I hotkey-overlay-title="lock" { spawn "sh" "-c" "~/.config/niri/scripts/lock.sh"; }
     Mod+Tab repeat=false hotkey-overlay-title="overview" { toggle-overview; }
     Mod+Q hotkey-overlay-title="close window"        { close-window; }
@@ -278,10 +280,16 @@ binds {
     Mod+Shift+Ctrl+L   { move-column-to-monitor-previous; }
     Mod+Shift+Ctrl+H   { move-column-to-monitor-next; }
 
-    Mod+WheelScrollDown      cooldown-ms=150 { focus-column-right; }
-    Mod+WheelScrollUp        cooldown-ms=150 { focus-column-left; }
-    Mod+Ctrl+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
-    Mod+Ctrl+WheelScrollUp   cooldown-ms=150 { focus-workspace-up; }
+    Mod+WheelScrollDown      { focus-column-right; }
+    Mod+WheelScrollUp        { focus-column-left; }
+    Mod+Ctrl+WheelScrollDown { focus-workspace-down; }
+    Mod+Ctrl+WheelScrollUp   { focus-workspace-up; }
+
+    Mod+Shift+WheelScrollDown { move-column-right; }
+    Mod+Shift+WheelScrollUp   { move-column-left; }
+    Mod+Shift+Ctrl+WheelScrollDown { move-window-down-or-to-workspace-down; }
+    Mod+Shift+Ctrl+WheelScrollUp   { move-window-up-or-to-workspace-up; }
+
 
     //tabs
     Mod+x { toggle-column-tabbed-display; }
