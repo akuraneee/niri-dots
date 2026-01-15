@@ -7,6 +7,7 @@ alias mbs2 "ddcutil --bus 3 set 10"
 alias mbsp1 "ddcutil --bus 3 set 10 100 && ddcutil --bus 2 set 10 70"
 alias mbsp2 "ddcutil --bus 3 set 10 50 && ddcutil --bus 2 set 10 30"
 alias z "cd .."
+alias t "tmux"
 # overwrite greeting
 # potentially disabling fastfetch
 #function fish_greeting

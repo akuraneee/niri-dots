@@ -10,7 +10,7 @@
   "margin-right": 200,
     "modules-left": ["niri/workspaces", "mpris"],
     "modules-center": ["clock"],
-    "modules-right": ["niri/window", "tray","backlight", "pulseaudio", "battery", "bluetooth", "custom/swaync"],
+    "modules-right": ["niri/window", "tray","backlight", "pulseaudio", "battery", "bluetooth", "custom/swaync",  "niri/language"],
     "sway/scratchpad": {
       "format": "󱂬 {count}"
     },
@@ -42,6 +42,8 @@
             "active": "●",
             "default": "•"
         },
+    "on-scroll-up": "niri msg action focus-workspace-up",
+    "on-scroll-down": "niri msg action focus-workspace-down"
     },
     "mpris": {
     	"format": "{status_icon} {artist} - {title}",
@@ -53,6 +55,11 @@
 //    		"playing": "󰐊"
     	},
     	"interval": "0.1"
+    },
+    "niri/language": {
+        "format": "{}    ",
+        "format-en": "EN",
+        "format-ru": "RU"
     },
   "niri/window": {
     // Формат отображения. {title} - сам заголовок окна.

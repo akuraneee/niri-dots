@@ -22,6 +22,7 @@ output "DP-1" {
 output "HDMI-A-1" {
     mode "1920x1080@100.0"
     position x=1920 y=0
+//    transform "90"
 }
 input {
     keyboard {
@@ -94,6 +95,7 @@ layout {
     tab-indicator {
         gap 3
 //        place-within-column
+    active-color "#616191"
     }
 
 }
@@ -241,7 +243,7 @@ window-rule {
 binds {
     XF86AudioRaiseVolume allow-when-locked=true      { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.02+"; }
     XF86AudioLowerVolume allow-when-locked=true      { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.02-"; }
-    XF86AudioMute        allow-when-locked=true      { spawn "playerctl" "play-pause"; }
+    XF86AudioPlay        allow-when-locked=true      { spawn "playerctl" "play-pause"; }
     XF86AudioMicMute     allow-when-locked=true      { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
     XF86MonBrightnessUp  allow-when-locked=true      { spawn "brightnessctl" "--device=intel_backlight" "set" "+5%" ; }
     XF86MonBrightnessDown allow-when-locked=true     { spawn "brightnessctl" "--device=intel_backlight" "set" "5%-" ; }
@@ -262,7 +264,8 @@ binds {
 //    Mod+B hotkey-overlay-title="toggle blur" { spawn "~/.config/niri/scripts/toggle-blur.sh"; }
     Mod+Alt+Z hotkey-overlay-title="zoom" { spawn "bash" "-c" "wooz --invert-scroll"; }
     Mod+Alt+T                   { spawn "bash" "-c" "normcap -l eng rus"; }
-    Mod+M           { spawn "gnome-system-monitor"; }
+    Mod+Shift+I { spawn "systemctl" "suspend"; }
+    Mod+M        { spawn "bash" "-c" "wpctl set-mute @DEFAULT_SOURCE@ toggle"; }
 
     //focus and windows moving
     Mod+H              { focus-column-left; }
@@ -282,8 +285,8 @@ binds {
 
     Mod+WheelScrollDown      { focus-column-right; }
     Mod+WheelScrollUp        { focus-column-left; }
-    Mod+Ctrl+WheelScrollDown { focus-workspace-down; }
-    Mod+Ctrl+WheelScrollUp   { focus-workspace-up; }
+    Mod+Ctrl+WheelScrollDown { focus-window-or-workspace-down; }
+    Mod+Ctrl+WheelScrollUp   { focus-window-or-workspace-up; }
 
     Mod+Shift+WheelScrollDown { move-column-right; }
     Mod+Shift+WheelScrollUp   { move-column-left; }
@@ -336,9 +339,10 @@ binds {
 
     //regular apps
     Mod+W            { spawn "zen-browser"; }
+    Mod+C      { spawn "chromium"; }
     Mod+T            { spawn "obsidian"; }
     Mod+E hotkey-overlay-title="run file manager" { spawn "nautilus"; }
-    Mod+RETURN hotkey-overlay-title="run a Terminal" { spawn "kitty"; }
+    Mod+RETURN hotkey-overlay-title="run a termninal" { spawn "kitty"; }
     Mod+S hotkey-overlay-title="spotify" { spawn "spotify"; }
     Mod+A hotkey-overlay-title="ayugram" { spawn "flatpak" "run" "com.ayugram.desktop"; }
     Mod+R hotkey-overlay-title="discord" { spawn "discord"; }
@@ -350,4 +354,6 @@ binds {
     Alt+Print        { screenshot-window; }
     Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
     Ctrl+Alt+Delete  { quit; }
+
+    //global hotkeys
 }
