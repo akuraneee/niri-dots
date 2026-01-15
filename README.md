@@ -7,11 +7,13 @@ sudo pacman -S stow
 ```
 install all the dependenciesd
 ```bash
-sudo pacman -S niri waybar swww swaync network-manager-applet blueman copyq  xdg-desktop-portal-gnome polkit-gnome polkit xwayland-satellite gtklock wl-clipboard fish blueman
+sudo pacman -S niri waybar swww swaync network-manager-applet blueman copyq  xdg-desktop-portal-gnome polkit-gnome polkit xwayland-satellite gtklock wl-clipboard fish blueman vicinae
 ```
+
 ```bash
-yay -S tofi
+yay -S normcap
 ```
+
 than clone this repo, enter the folder and
 ```bash
 stow .
@@ -35,3 +37,5 @@ stow .
 - xwayland-sattelite
 - gtklock
 - wl-clipboard
+- vicinae
+- namcap
