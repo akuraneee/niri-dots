@@ -1,0 +1,104 @@
+// waybar — https://github.com/Alexays/Waybar/wiki
+{
+  "layer": "top",
+  "position": "top",
+  "height": 0,
+  "spacing": 0,
+  "margin-top": 10,
+  "margin-left": 200,
+  "margin-right": 200,
+
+  "modules-left": ["niri/workspaces", "mpris"],
+  "modules-center": ["clock"],
+  "modules-right": [
+    "niri/window",
+    "tray",
+    "pulseaudio",
+    "bluetooth",
+    "custom/swaync",
+    "niri/language"
+  ],
+
+  // ─── Left ──────────────────────────────────────────────────────────────────
+
+  "niri/workspaces": {
+    "format": "{icon}",
+    "format-icons": {
+      "active": "●",
+      "default": "•"
+    },
+    "on-scroll-up": "niri msg action focus-workspace-up",
+    "on-scroll-down": "niri msg action focus-workspace-down"
+  },
+
+  "mpris": {
+    "format": "{status_icon} {artist} - {title}",
+    "format-stopped": "",
+    "title-len": 35,
+    "status-icons": {
+      "paused": "*"
+    }
+  },
+
+  // ─── Center ────────────────────────────────────────────────────────────────
+
+  "clock": {
+    "format": "{:%H:%M %d/%m}",
+    "interval": 1,
+    "tooltip-format": "{:%A %d %B %Y}"
+  },
+
+  // ─── Right ─────────────────────────────────────────────────────────────────
+
+  "niri/window": {
+    "format": "<span>{title}</span>"
+  },
+
+  "tray": {
+    "spacing": 12
+  },
+
+  "pulseaudio": {
+    "format": "{volume}%",
+    "on-click-right": "pavucontrol"
+  },
+
+  "bluetooth": {
+    "format-on": "",
+    "format-off": "󰂲",
+    "format-disabled": "",
+    "format-connected": " {device_alias}",
+    "format-connected-battery": " {icon} {device_alias}",
+    "format-icons": ["", "", "", "", ""],
+    "tooltip-format-on": "{controller_address} {controller_address_type}",
+    "tooltip-format-off": "{controller_address} {controller_address_type}",
+    "tooltip-format-connected": "{device_address} {controller_alias}",
+    "tooltip-format-connected-battery": "{device_battery_percentage}% {device_address} {controller_alias}",
+    "on-click-right": "blueman-manager"
+  },
+
+  "custom/swaync": {
+    "format": "{icon}",
+    "format-icons": {
+      "notification": "󰂚",
+      "none": "󰂜",
+      "dnd-notification": "󰂛",
+      "dnd-none": "󰂛",
+      "inhibited-notification": "󰂚",
+      "inhibited-none": "󰂜",
+      "dnd-inhibited-notification": "󰂛",
+      "dnd-inhibited-none": "󰂛"
+    },
+    "return-type": "json",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+  },
+
+  "niri/language": {
+    "format": "{}    ",
+    "format-en": "EN",
+    "format-ru": "RU"
+  }
+}

@@ -1,0 +1,302 @@
+// niri config — https://yalter.github.io/niri/Configuration:-Introduction
+// Check after editing: niri validate
+
+
+// ─── Environment ─────────────────────────────────────────────────────────────
+
+environment {
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
+    GDK_SCALE "1.5"
+    QT_QPA_PLATFORMTHEME "gnome"
+    QT_STYLE_OVERRIDE "Adwaita-Dark"
+    QT_WAYLAND_DECORATION "adwaita"
+}
+
+prefer-no-csd
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+hotkey-overlay {
+    skip-at-startup
+}
+
+
+// ─── Outputs ─────────────────────────────────────────────────────────────────
+// Names and modes: niri msg outputs
+
+output "DP-1" {
+    mode "1920x1080@60.0"
+    position x=0 y=0
+}
+
+output "HDMI-A-1" {
+    mode "1920x1080@100.0"
+    position x=1920 y=0
+}
+
+
+// ─── Input ───────────────────────────────────────────────────────────────────
+
+input {
+    keyboard {
+        xkb {
+            layout "us,ru"
+            options "grp:caps_toggle"
+        }
+        repeat-delay 300
+        repeat-rate 50
+    }
+
+    mouse {
+        accel-speed -0.7
+        accel-profile "flat"
+    }
+}
+
+
+// ─── Layout ──────────────────────────────────────────────────────────────────
+
+layout {
+    gaps 10
+    background-color "transparent"
+
+    center-focused-column "on-overflow"
+    always-center-single-column
+    empty-workspace-above-first
+
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+    }
+    default-column-width { proportion 0.5; }
+
+    // Borders are off — the active window is outlined by a shadow (see window-rule below)
+    focus-ring { off; }
+    border { off; }
+
+    tab-indicator {
+        gap 3
+        active-color "#a0a0a0"
+    }
+}
+
+overview {
+    zoom 0.3
+    workspace-shadow { off; }
+}
+
+
+// ─── Animations ──────────────────────────────────────────────────────────────
+
+animations {
+    workspace-switch {
+        spring damping-ratio=0.80 stiffness=523 epsilon=0.0001
+    }
+    window-open {
+        duration-ms 250
+        curve "ease-out-expo"
+    }
+    window-close {
+        duration-ms 250
+        curve "ease-out-quad"
+    }
+    horizontal-view-movement {
+        spring damping-ratio=0.85 stiffness=423 epsilon=0.0001
+    }
+    window-movement {
+        spring damping-ratio=0.75 stiffness=323 epsilon=0.0001
+    }
+    window-resize {
+        spring damping-ratio=0.85 stiffness=423 epsilon=0.0001
+    }
+    config-notification-open-close {
+        spring damping-ratio=0.65 stiffness=923 epsilon=0.001
+    }
+    screenshot-ui-open {
+        duration-ms 200
+        curve "ease-out-quad"
+    }
+    overview-open-close {
+        spring damping-ratio=0.85 stiffness=550 epsilon=0.0001
+    }
+}
+
+
+// ─── Window rules ────────────────────────────────────────────────────────────
+
+// Rounded corners for all windows
+window-rule {
+    geometry-corner-radius 18
+    clip-to-geometry true
+}
+
+// Thin shadow outline around the active window instead of a border
+window-rule {
+    match is-active=true
+
+    shadow {
+        on
+        color "#121212a0"
+        softness 0
+        spread 3
+        offset x=0 y=0
+    }
+}
+
+// Browser picture-in-picture opens floating
+window-rule {
+    match title="^Picture[- ]in[- ][Pp]icture$"
+    open-floating true
+}
+
+// Steam notifications go to the bottom-right corner
+window-rule {
+    match app-id="steam" title=r#"^notificationtoasts_\d+_desktop$"#
+    default-floating-position x=10 y=10 relative-to="bottom-right"
+}
+
+
+// ─── Layer rules ─────────────────────────────────────────────────────────────
+
+// Keep the wallpaper visible in the overview
+layer-rule {
+    match namespace="^awww-daemon$"
+    place-within-backdrop true
+}
+
+layer-rule {
+    match namespace="^waybar$"
+
+    opacity 0.8
+    geometry-corner-radius 20
+
+    shadow {
+        on
+        softness 10
+        spread 5
+        offset x=0 y=2
+    }
+}
+
+
+// ─── Autostart ───────────────────────────────────────────────────────────────
+// niri starts xwayland-satellite itself; gnome-keyring is started by systemd.
+
+spawn-at-startup "waybar"
+spawn-at-startup "awww-daemon"
+spawn-at-startup "swaync"
+spawn-at-startup "hypridle"
+spawn-at-startup "nm-applet"
+spawn-at-startup "copyq"
+spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
+
+
+// ─── Binds ───────────────────────────────────────────────────────────────────
+// Mod+Slash shows the hotkey overlay
+
+binds {
+    // Media
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.02+"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.02-"; }
+    XF86AudioPlay        allow-when-locked=true { spawn "playerctl" "play-pause"; }
+    XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+    Mod+M                                       { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+
+    // System
+    Mod+Slash                                         { show-hotkey-overlay; }
+    Mod+Z         hotkey-overlay-title="Launcher"      { spawn "fuzzel"; }
+    Mod+Tab       repeat=false hotkey-overlay-title="Overview" { toggle-overview; }
+    Mod+Q         hotkey-overlay-title="Close window"  { close-window; }
+    Mod+V         hotkey-overlay-title="Clipboard"     { spawn "copyq" "toggle"; }
+    Mod+N         hotkey-overlay-title="Notifications" { spawn "swaync-client" "-t"; }
+    Mod+U         hotkey-overlay-title="Toggle DND"    { spawn "swaync-client" "--toggle-dnd"; }
+    Mod+Ctrl+V    hotkey-overlay-title="Volume mixer"  { spawn "pavucontrol"; }
+    Mod+Shift+W   hotkey-overlay-title="Wallpaper"     { spawn "waypaper"; }
+    Mod+Shift+T   hotkey-overlay-title="OCR (normcap)" { spawn "normcap" "-l" "eng" "rus"; }
+    Mod+I         hotkey-overlay-title="Lock"          { spawn "loginctl" "lock-session"; }
+    Mod+Shift+I   hotkey-overlay-title="Suspend"       { spawn "systemctl" "suspend"; }
+    Mod+Escape    allow-inhibiting=false               { toggle-keyboard-shortcuts-inhibit; }
+    Ctrl+Alt+Delete                                    { quit; }
+
+    // Screenshots
+    Mod+Shift+S { screenshot; }
+    Ctrl+Print  { screenshot-screen; }
+    Alt+Print   { screenshot-window; }
+
+    // Apps
+    Mod+Return hotkey-overlay-title="Terminal"     { spawn "ghostty"; }
+    Mod+W      hotkey-overlay-title="Browser"      { spawn "helium-browser"; }
+    Mod+E      hotkey-overlay-title="File manager" { spawn "nautilus"; }
+    Mod+T      hotkey-overlay-title="Obsidian"     { spawn "flatpak" "run" "md.obsidian.Obsidian"; }
+    Mod+S      hotkey-overlay-title="Spotify"      { spawn "spotify"; }
+    Mod+A      hotkey-overlay-title="Telegram"     { spawn "flatpak" "run" "org.telegram.desktop"; }
+    Mod+R      hotkey-overlay-title="Discord"      { spawn "discord"; }
+    Mod+B      hotkey-overlay-title="KeePassXC"    { spawn "keepassxc"; }
+
+    // Focus (vim keys)
+    Mod+H { focus-column-left; }
+    Mod+L { focus-column-right; }
+    Mod+J { focus-window-or-workspace-down; }
+    Mod+K { focus-window-or-workspace-up; }
+
+    // Move
+    Mod+Shift+H { move-column-left; }
+    Mod+Shift+L { move-column-right; }
+    Mod+Shift+J { move-window-down-or-to-workspace-down; }
+    Mod+Shift+K { move-window-up-or-to-workspace-up; }
+
+    // Monitors
+    Mod+Ctrl+H       { focus-monitor-left; }
+    Mod+Ctrl+L       { focus-monitor-right; }
+    Mod+Shift+Ctrl+H { move-column-to-monitor-left; }
+    Mod+Shift+Ctrl+L { move-column-to-monitor-right; }
+
+    // Mouse wheel
+    Mod+WheelScrollDown            { focus-column-right; }
+    Mod+WheelScrollUp              { focus-column-left; }
+    Mod+Ctrl+WheelScrollDown       { focus-window-or-workspace-down; }
+    Mod+Ctrl+WheelScrollUp         { focus-window-or-workspace-up; }
+    Mod+Shift+WheelScrollDown      { move-column-right; }
+    Mod+Shift+WheelScrollUp        { move-column-left; }
+    Mod+Shift+Ctrl+WheelScrollDown { move-window-down-or-to-workspace-down; }
+    Mod+Shift+Ctrl+WheelScrollUp   { move-window-up-or-to-workspace-up; }
+
+    // Workspaces
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+6 { focus-workspace 6; }
+    Mod+7 { focus-workspace 7; }
+    Mod+8 { focus-workspace 8; }
+    Mod+9 { focus-workspace 9; }
+
+    Mod+Ctrl+1 { move-column-to-workspace 1; }
+    Mod+Ctrl+2 { move-column-to-workspace 2; }
+    Mod+Ctrl+3 { move-column-to-workspace 3; }
+    Mod+Ctrl+4 { move-column-to-workspace 4; }
+    Mod+Ctrl+5 { move-column-to-workspace 5; }
+    Mod+Ctrl+6 { move-column-to-workspace 6; }
+    Mod+Ctrl+7 { move-column-to-workspace 7; }
+    Mod+Ctrl+8 { move-column-to-workspace 8; }
+    Mod+Ctrl+9 { move-column-to-workspace 9; }
+
+    // Columns and tabs
+    Mod+BracketLeft  { consume-or-expel-window-left; }
+    Mod+BracketRight { consume-or-expel-window-right; }
+    Mod+X            { toggle-column-tabbed-display; }
+
+    // Window size and mode
+    Mod+D           { maximize-column; }
+    Mod+F           { fullscreen-window; }
+    Mod+Ctrl+F      { expand-column-to-available-width; }
+    Mod+Shift+C     { center-column; }
+    Mod+Alt+R       { reset-window-height; }
+    Mod+Alt+H       { set-column-width "-10%"; }
+    Mod+Alt+L       { set-column-width "+10%"; }
+    Mod+Alt+K       { set-window-height "-10%"; }
+    Mod+Alt+J       { set-window-height "+10%"; }
+    Mod+Space       { toggle-window-floating; }
+    Mod+Shift+Space { switch-focus-between-floating-and-tiling; }
+}

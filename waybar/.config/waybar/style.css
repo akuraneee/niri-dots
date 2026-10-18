@@ -1,0 +1,84 @@
+* {
+  font-size: 15px;
+}
+
+window#waybar {
+  border-bottom: 1px solid #181825;
+  border-radius: 20px;
+}
+
+.modules-left,
+.modules-center,
+.modules-right {
+  padding: 4px 0;
+}
+
+/* ─── Shared module spacing ─────────────────────────────────────────────── */
+
+#clock,
+#tray,
+#window,
+#pulseaudio,
+#bluetooth {
+  background: transparent;
+  padding: 0;
+  margin: 0 14px 0 0;
+  border-radius: 6px;
+}
+
+/* ─── Workspaces ────────────────────────────────────────────────────────── */
+
+#workspaces {
+  margin-left: 10px;
+}
+
+#workspaces button {
+  background: transparent;
+  box-shadow: none;
+  border: none;
+  border-radius: 0;
+  color: #888888;
+  font-size: 18px;
+  padding: 0 1px;
+  margin-right: 0;
+}
+
+#workspaces button.active {
+  color: #ffffff;
+  font-size: 20px;
+}
+
+#workspaces button:hover {
+  background-color: transparent;
+  color: #c0c0c0;
+}
+
+#workspaces button.urgent {
+  color: #fb4934;
+}
+
+/* ─── Modules ───────────────────────────────────────────────────────────── */
+
+#mpris {
+  padding: 4px;
+}
+
+#clock {
+  font-size: 16px;
+}
+
+#tray {
+  padding: 4px;
+}
+
+#window {
+  color: #9c9c9c;
+}
+
+#pulseaudio {
+  color: #88c0d0;
+}
+
+#custom-swaync {
+  margin-right: 17px;
+}
