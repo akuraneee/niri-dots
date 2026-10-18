@@ -1,0 +1,14 @@
+/* Default swaync style with a monochrome accent instead of blue */
+@import url("file:///etc/xdg/swaync/style.css");
+
+:root {
+  --bg-selected: rgb(224, 224, 224);
+  --accent-color: #ffffff;
+  --accent-bg-color: #e0e0e0;
+  --accent-fg-color: #000000;
+}
+
+@define-color bg-selected rgb(224, 224, 224);
+@define-color accent_color #ffffff;
+@define-color accent_bg_color #e0e0e0;
+@define-color accent_fg_color #000000;
