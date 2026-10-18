@@ -214,7 +214,7 @@ binds {
     Mod+Shift+W   hotkey-overlay-title="Wallpaper"     { spawn "waypaper"; }
     Mod+Shift+T   hotkey-overlay-title="OCR (normcap)" { spawn "normcap" "-l" "eng" "rus"; }
     Mod+I         hotkey-overlay-title="Lock"          { spawn "loginctl" "lock-session"; }
-    Mod+Shift+I   hotkey-overlay-title="Suspend"       { spawn "systemctl" "suspend"; }
+    Mod+Shift+I   hotkey-overlay-title="Suspend"       { spawn-sh "loginctl lock-session && sleep 1 && systemctl suspend"; }
     Mod+Escape    allow-inhibiting=false               { toggle-keyboard-shortcuts-inhibit; }
     Ctrl+Alt+Delete                                    { quit; }
 

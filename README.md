@@ -92,3 +92,5 @@ Press `Mod+/` in niri for the full list.
 - Outputs are set up for my monitors (`DP-1` + `HDMI-A-1`). Edit the "Outputs" section in `niri/.config/niri/config.kdl`; get your output names from `niri msg outputs`.
 - After editing the niri config, run `niri validate`.
 - To show an avatar on the lock screen, put an image at `~/.face`.
+- Idle: unlocked — suspend after 15 min; locked — monitors off after 30 s, suspend after 5 min.
+  Waking up always lands on the lock screen. Timings live in `hypr/.config/hypr/hypridle.conf`.
