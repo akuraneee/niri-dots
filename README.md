@@ -82,6 +82,7 @@ Press `Mod+/` in niri for the full list.
 | `Mod+X` | tabbed column |
 | `Mod+V` | clipboard (copyq) |
 | `Mod+N` / `Mod+U` | notifications / do not disturb |
+| `Pause` / `Mod+M` | mute / unmute the microphone |
 | `Mod+Shift+S` | screenshot a region |
 | `Mod+Shift+T` | OCR (normcap) |
 | `Mod+Shift+W` | pick a wallpaper (waypaper) |

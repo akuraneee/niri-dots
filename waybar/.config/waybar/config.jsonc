@@ -13,6 +13,7 @@
   "modules-right": [
     "niri/window",
     "tray",
+    "pulseaudio#mic",
     "pulseaudio",
     "network",
     "bluetooth",
@@ -62,6 +63,15 @@
   "pulseaudio": {
     "format": "{volume}%",
     "on-click-right": "pavucontrol"
+  },
+
+  // Shown only while the mic is muted (empty text hides the module)
+  "pulseaudio#mic": {
+    "format": "{format_source}",
+    "format-source": "",
+    "format-source-muted": "󰍭",
+    "tooltip-format": "Microphone muted",
+    "on-click": "~/.config/niri/scripts/mic-toggle.sh"
   },
 
   "network": {

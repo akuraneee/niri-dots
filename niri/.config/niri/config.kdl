@@ -205,8 +205,9 @@ binds {
     XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.02+"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.02-"; }
     XF86AudioPlay        allow-when-locked=true { spawn "playerctl" "play-pause"; }
-    XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
-    Mod+M                                       { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+    XF86AudioMicMute     allow-when-locked=true { spawn-sh "~/.config/niri/scripts/mic-toggle.sh"; }
+    Pause                allow-when-locked=true { spawn-sh "~/.config/niri/scripts/mic-toggle.sh"; }
+    Mod+M                                       { spawn-sh "~/.config/niri/scripts/mic-toggle.sh"; }
 
     // System
     Mod+Slash                                         { show-hotkey-overlay; }
