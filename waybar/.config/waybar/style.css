@@ -20,6 +20,7 @@ window#waybar {
 #tray,
 #window,
 #pulseaudio,
+#network,
 #bluetooth {
   background: transparent;
   padding: 0;

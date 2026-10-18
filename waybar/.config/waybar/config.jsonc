@@ -14,6 +14,7 @@
     "niri/window",
     "tray",
     "pulseaudio",
+    "network",
     "bluetooth",
     "custom/swaync",
     "niri/language"
@@ -61,6 +62,21 @@
   "pulseaudio": {
     "format": "{volume}%",
     "on-click-right": "pavucontrol"
+  },
+
+  "network": {
+    // en* = wired NIC; otherwise the module picks Mullvad's wg0 tunnel
+    "interface": "en*",
+    "format-ethernet": "󰈀",
+    "format-wifi": "{icon}",
+    "format-linked": "󰌘",
+    "format-disconnected": "󰌘",
+    "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+    "tooltip-format": "{ifname}  {ipaddr}/{cidr}",
+    "tooltip-format-wifi": "{essid} ({signalStrength}%)  {ipaddr}/{cidr}",
+    "tooltip-format-disconnected": "Disconnected",
+    "on-click": "ghostty -e nmtui",
+    "on-click-right": "nm-connection-editor"
   },
 
   "bluetooth": {

@@ -193,7 +193,6 @@ spawn-at-startup "waybar"
 spawn-at-startup "awww-daemon"
 spawn-at-startup "swaync"
 spawn-at-startup "hypridle"
-spawn-at-startup "nm-applet"
 spawn-at-startup "copyq"
 spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 
