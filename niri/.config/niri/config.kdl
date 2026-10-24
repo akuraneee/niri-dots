@@ -214,9 +214,9 @@ switch-events {
 
 binds {
     // Media
-    XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.02+"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.02-"; }
-    XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "~/.config/niri/scripts/volume.sh up"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "~/.config/niri/scripts/volume.sh down"; }
+    XF86AudioMute        allow-when-locked=true { spawn-sh "~/.config/niri/scripts/volume.sh mute"; }
     XF86AudioPlay        allow-when-locked=true { spawn "playerctl" "play-pause"; }
     XF86AudioMicMute     allow-when-locked=true { spawn-sh "~/.config/niri/scripts/mic-toggle.sh"; }
     Pause                allow-when-locked=true { spawn-sh "~/.config/niri/scripts/mic-toggle.sh"; }
@@ -251,7 +251,7 @@ binds {
     Mod+E      hotkey-overlay-title="File manager" { spawn "nautilus"; }
     Mod+T      hotkey-overlay-title="Obsidian"     { spawn "flatpak" "run" "md.obsidian.Obsidian"; }
     Mod+S      hotkey-overlay-title="Spotify"      { spawn "spotify"; }
-    Mod+A      hotkey-overlay-title="Telegram"     { spawn "flatpak" "run" "org.telegram.desktop"; }
+    Mod+A      hotkey-overlay-title="Telegram"     { spawn "flatpak" "telegram-desktop"; }
     Mod+R      hotkey-overlay-title="Discord"      { spawn "discord"; }
     Mod+B      hotkey-overlay-title="KeePassXC"    { spawn "keepassxc"; }
 
