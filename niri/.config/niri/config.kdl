@@ -40,7 +40,7 @@ input {
     keyboard {
         xkb {
             layout "us,ru"
-            options "grp:caps_toggle"
+            options "grp:caps_toggle,ctrl:swap_lalt_lctl"
         }
         repeat-delay 300
         repeat-rate 50
@@ -49,6 +49,10 @@ input {
     mouse {
         accel-speed -0.7
         accel-profile "flat"
+    }
+    touchpad {
+	tap
+	natural-scroll
     }
 }
 
@@ -197,6 +201,14 @@ spawn-at-startup "copyq"
 spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 
 
+// ─── Lid ─────────────────────────────────────────────────────────────────────
+// Closing the lid suspends via logind (HandleLidSwitch=suspend, the default);
+// hypridle locks the session first. On open, wake the screen right away.
+
+switch-events {
+    lid-open { spawn "niri" "msg" "action" "power-on-monitors"; }
+}
+
 // ─── Binds ───────────────────────────────────────────────────────────────────
 // Mod+Slash shows the hotkey overlay
 
@@ -204,10 +216,13 @@ binds {
     // Media
     XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.02+"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.02-"; }
+    XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
     XF86AudioPlay        allow-when-locked=true { spawn "playerctl" "play-pause"; }
     XF86AudioMicMute     allow-when-locked=true { spawn-sh "~/.config/niri/scripts/mic-toggle.sh"; }
     Pause                allow-when-locked=true { spawn-sh "~/.config/niri/scripts/mic-toggle.sh"; }
     Mod+M                                       { spawn-sh "~/.config/niri/scripts/mic-toggle.sh"; }
+    XF86MonBrightnessUp   allow-when-locked=true { spawn-sh "~/.config/niri/scripts/brightness.sh up"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn-sh "~/.config/niri/scripts/brightness.sh down"; }
 
     // System
     Mod+Slash                                         { show-hotkey-overlay; }

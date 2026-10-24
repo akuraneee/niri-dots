@@ -2,7 +2,7 @@
 {
   "layer": "top",
   "position": "top",
-  "height": 0,
+  "height": 32,
   "spacing": 0,
   "margin-top": 10,
   "margin-left": 200,
@@ -15,10 +15,12 @@
     "tray",
     "pulseaudio#mic",
     "pulseaudio",
-    "network",
+    "network#ethernet",
+    "network#wifi",
     "bluetooth",
     "custom/swaync",
-    "niri/language"
+    "niri/language",
+    "battery"
   ],
 
   // ─── Left ──────────────────────────────────────────────────────────────────
@@ -62,6 +64,7 @@
 
   "pulseaudio": {
     "format": "{volume}%",
+    "format-muted": "󰝟",
     "on-click-right": "pavucontrol"
   },
 
@@ -74,18 +77,26 @@
     "on-click": "~/.config/niri/scripts/mic-toggle.sh"
   },
 
-  "network": {
-    // en* = wired NIC; otherwise the module picks Mullvad's wg0 tunnel
+  // Pinned to physical interfaces, otherwise the module picks Mullvad's wg0 tunnel.
+  // Ethernet shows only while a cable is connected
+  "network#ethernet": {
     "interface": "en*",
     "format-ethernet": "󰈀",
-    "format-wifi": "{icon}",
-    "format-linked": "󰌘",
-    "format-disconnected": "󰌘",
-    "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+    "format-linked": "󰈀",
+    "format-disconnected": "",
     "tooltip-format": "{ifname}  {ipaddr}/{cidr}",
+    "on-click-right": "nm-connection-editor"
+  },
+
+  "network#wifi": {
+    "interface": "wl*",
+    "format-wifi": "{icon}",
+    "format-linked": "󰤫",
+    "format-disconnected": "󰤮",
+    "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
     "tooltip-format-wifi": "{essid} ({signalStrength}%)  {ipaddr}/{cidr}",
-    "tooltip-format-disconnected": "Disconnected",
-    "on-click": "ghostty -e nmtui",
+    "tooltip-format-disconnected": "Wi-Fi disconnected",
+    "on-click": "~/.config/niri/scripts/wifi-menu.sh",
     "on-click-right": "nm-connection-editor"
   },
 
@@ -123,8 +134,24 @@
   },
 
   "niri/language": {
-    "format": "{}    ",
+    "format": "{}",
     "format-en": "EN",
     "format-ru": "RU"
+  },
+
+  // Rightmost; turns red below 20% (see style.css), plug icon while charging.
+  // Dropping below 20% on battery fires a notification offering power saver
+  "battery": {
+    "interval": 30,
+    "states": {
+      "critical": 20
+    },
+    "events": {
+      "on-discharging-critical": "~/.config/niri/scripts/battery-low.sh"
+    },
+    "format": "{capacity}%",
+    "format-charging": "󰂄 {capacity}%",
+    "format-plugged": "󰚥 {capacity}%",
+    "tooltip-format": "{timeTo}"
   }
 }

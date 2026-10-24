@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Power mode: Power saver
+Exec=sh -c "exec \\$HOME/.config/niri/scripts/power-profile.sh power-saver"
+Icon=power-profile-power-saver-symbolic
+Keywords=power;profile;saver;battery;питание;энергосбережение;
+Terminal=false

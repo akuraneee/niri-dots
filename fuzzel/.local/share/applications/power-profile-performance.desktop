@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Power mode: Performance
+Exec=sh -c "exec \\$HOME/.config/niri/scripts/power-profile.sh performance"
+Icon=power-profile-performance-symbolic
+Keywords=power;profile;performance;питание;производительность;
+Terminal=false

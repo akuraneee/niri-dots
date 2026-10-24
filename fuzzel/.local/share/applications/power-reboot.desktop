@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Reboot
+Exec=systemctl reboot
+Icon=system-reboot
+Keywords=restart;reboot;перезагрузка;перезагрузить;
+Terminal=false

@@ -71,3 +71,23 @@ window#waybar {
 #custom-swaync {
   margin-right: 17px;
 }
+
+#language {
+  margin-right: 14px;
+}
+
+#battery {
+  margin-right: 17px;
+}
+
+#battery.critical {
+  color: #ff5555;
+}
+
+/* Titles may contain glyphs from fallback fonts (✳, ⠂, emoji, CJK) with taller
+   line metrics; negative margins keep them from stretching the 32px bar */
+#window,
+#mpris {
+  margin-top: -4px;
+  margin-bottom: -4px;
+}

@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Power mode: Balanced
+Exec=sh -c "exec \\$HOME/.config/niri/scripts/power-profile.sh balanced"
+Icon=power-profile-balanced-symbolic
+Keywords=power;profile;balanced;питание;баланс;
+Terminal=false

@@ -19,7 +19,7 @@ My dotfiles for [niri](https://github.com/YaLTeR/niri) on CachyOS / Arch.
 sudo pacman -S stow niri xwayland-satellite xdg-desktop-portal-gnome xdg-desktop-portal-gtk \
     waybar swaync awww hyprlock hypridle fuzzel ghostty fish starship lsd fastfetch \
     polkit-gnome gnome-keyring network-manager-applet blueman copyq wl-clipboard \
-    pavucontrol playerctl ddcutil nautilus adw-gtk-theme
+    pavucontrol playerctl ddcutil brightnessctl power-profiles-daemon nautilus adw-gtk-theme
 ```
 
 ```bash

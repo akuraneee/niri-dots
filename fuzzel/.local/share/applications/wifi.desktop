@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Wi-Fi
+Exec=sh -c "exec \\$HOME/.config/niri/scripts/wifi-menu.sh"
+Icon=network-wireless-symbolic
+Keywords=wifi;wi-fi;network;wireless;сеть;вайфай;интернет;
+Terminal=false
