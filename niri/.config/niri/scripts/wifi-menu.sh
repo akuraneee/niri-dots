@@ -25,10 +25,14 @@ rescan=auto
 device=$(nmcli -t -f DEVICE,TYPE device | awk -F: '$2 == "wifi" { print $1; exit }')
 current=$(nmcli -g GENERAL.CONNECTION device show "$device" 2>/dev/null)
 
-# Saved Wi-Fi profiles; their names are the SSIDs unless renamed by hand
-mapfile -t saved < <(nmcli -t -f NAME,TYPE connection show |
-    awk -F: '$2 == "802-11-wireless" { print $1 }')
-is_saved() { printf '%s\n' "${saved[@]}" | grep -qxF -- "$1"; }
+# Saved Wi-Fi profiles, matched by their real SSID: profile names may differ
+# ("MyWifi 1") or carry stray whitespace, so never assume name == SSID
+declare -A saved_uuid
+while IFS=: read -r uuid type; do
+    [[ $type == 802-11-wireless ]] || continue
+    saved_uuid[$(nmcli -g 802-11-wireless.ssid connection show uuid "$uuid")]=$uuid
+done < <(nmcli -t -f UUID,TYPE connection show)
+is_saved() { [[ -n ${saved_uuid[$1]} ]]; }
 
 # SSID goes last so colons inside it survive the split; drop hidden networks
 # and duplicate access points of the same network (the list is sorted by signal)
@@ -41,7 +45,7 @@ while IFS=: read -r in_use signal security ssid; do
     lock=""; [[ -n $security && $security != -- ]] && lock="  󰌾"
     mark=""; [[ $in_use == '*' ]] && mark="  "$'\uf00c'
     ssids+=("$ssid")
-    lines+=("$icon  $ssid$lock$mark")
+    lines+=("$icon  $ssid$lock$mark  ${signal}%")
 done < <(nmcli -t --escape no -f IN-USE,SIGNAL,SECURITY,SSID device wifi list \
     --rescan "$rescan" | sort -t: -k2,2nr)
 
@@ -61,7 +65,13 @@ ssid=${ssids[pick - ${#actions[@]}]}
 line=${lines[pick - ${#actions[@]}]}
 
 if is_saved "$ssid"; then
-    out=$(nmcli connection up id "$ssid" 2>&1)
+    uuid=${saved_uuid[$ssid]}
+    # Profiles made under another interface name (wlp2s0 vs wlan0, other
+    # machine) are refused as incompatible; rebind them to this device
+    bound=$(nmcli -g connection.interface-name connection show uuid "$uuid")
+    [[ -n $bound && $bound != "$device" ]] &&
+        nmcli connection modify uuid "$uuid" connection.interface-name "$device"
+    out=$(nmcli connection up uuid "$uuid" 2>&1)
 elif [[ $line == *󰌾* ]]; then
     password=$(fuzzel --dmenu --password --prompt "Password for $ssid  " --lines 0 --width 45 </dev/null)
     [[ -z $password ]] && exit
