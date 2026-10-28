@@ -240,6 +240,7 @@ binds {
     Mod+Shift+T   hotkey-overlay-title="OCR (normcap)" { spawn "normcap" "-l" "eng" "rus"; }
     Mod+I         hotkey-overlay-title="Lock"          { spawn "loginctl" "lock-session"; }
     Mod+Shift+I   hotkey-overlay-title="Suspend"       { spawn-sh "~/.config/niri/scripts/lock-suspend.sh"; }
+    Mod+Ctrl+I    hotkey-overlay-title="Caffeine"      { spawn-sh "~/.config/niri/scripts/caffeine.sh"; }
     Mod+Escape    allow-inhibiting=false               { toggle-keyboard-shortcuts-inhibit; }
     Ctrl+Alt+Delete                                    { quit; }
 

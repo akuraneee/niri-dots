@@ -13,6 +13,7 @@
   "modules-right": [
     "niri/window",
     "tray",
+    "custom/caffeine",
     "pulseaudio#mic",
     "pulseaudio",
     "network",
@@ -68,6 +69,15 @@
     "format-icons": ["󰕿", "󰖀", "󰕾"],
     "tooltip-format": "{volume}%",
     "on-click-right": "pavucontrol"
+  },
+
+  // Shown only while caffeine is on (Mod+Ctrl+I); click to turn it off
+  "custom/caffeine": {
+    "return-type": "json",
+    "exec": "~/.config/niri/scripts/caffeine.sh status",
+    "interval": "once",
+    "signal": 8,
+    "on-click": "~/.config/niri/scripts/caffeine.sh"
   },
 
   // Shown only while the mic is muted (empty text hides the module)

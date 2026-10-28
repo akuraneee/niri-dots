@@ -20,6 +20,7 @@ window#waybar {
 #tray,
 #window,
 #pulseaudio,
+#custom-caffeine,
 #network,
 #bluetooth {
   background: transparent;

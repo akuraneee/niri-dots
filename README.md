@@ -152,6 +152,7 @@ Press `Mod+/` in niri for the full list.
 | `Mod+Shift+T` | OCR (normcap) |
 | `Mod+Shift+W` | pick a wallpaper (waypaper) |
 | `Mod+I` / `Mod+Shift+I` | lock / suspend |
+| `Mod+Ctrl+I` | caffeine: screen stays on, no auto-lock/suspend (cup icon in waybar) |
 
 ## Notes
 
