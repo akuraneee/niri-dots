@@ -12,12 +12,5 @@ if status is-interactive
     alias mbsp1 "ddcutil --bus 3 setvcp 10 100 && ddcutil --bus 2 setvcp 10 70"
     alias mbsp2 "ddcutil --bus 3 setvcp 10 50 && ddcutil --bus 2 setvcp 10 30"
 
-    alias please sudo
-    alias пожалуйста sudo
-    alias portage pacman
-    alias poweroff "echo nuh-uuh"
-    alias shutdown "echo nuh-uuh"
-    alias reboot "echo nuh-uuh"
-    alias fakefish "sh ~/Documents/fakefish.sh"
 end
 export PATH="$HOME/.local/bin:$PATH"
