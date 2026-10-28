@@ -12,24 +12,89 @@ My dotfiles for [niri](https://github.com/YaLTeR/niri) on CachyOS / Arch.
 | `ghostty`   | terminal                                              |
 | `fish`      | shell                                                 |
 | `fastfetch` | fastfetch with a custom logo                          |
+| `waypaper`  | wallpaper picker on top of `awww`                     |
 
-## Dependencies
+## Recreating the setup from scratch
+
+Starting point: a fresh Arch / CachyOS install with a user, NetworkManager and an AUR helper (`yay`).
+
+### 1. Packages
 
 ```bash
 sudo pacman -S stow niri xwayland-satellite xdg-desktop-portal-gnome xdg-desktop-portal-gtk \
     waybar swaync awww hyprlock hypridle fuzzel ghostty fish starship lsd fastfetch \
-    polkit-gnome gnome-keyring network-manager-applet blueman copyq wl-clipboard \
-    pavucontrol playerctl ddcutil brightnessctl power-profiles-daemon nautilus adw-gtk-theme
+    polkit-gnome gnome-keyring blueman copyq wl-clipboard \
+    pavucontrol playerctl ddcutil brightnessctl power-profiles-daemon nautilus adw-gtk-theme \
+    noto-fonts noto-fonts-cjk noto-fonts-emoji adwaita-fonts ttf-jetbrains-mono-nerd
 ```
 
 ```bash
 yay -S waypaper normcap
 ```
 
-You also need any [Nerd Font](https://www.nerdfonts.com/), otherwise icons in waybar and fastfetch won't render.
+For the YubiKey unlock (optional): `sudo pacman -S pam-u2f`.
 
 Apps bound to hotkeys (install what you use): `helium-browser-bin`, `spotify`, `discord`, `keepassxc`,
 and the flatpaks `md.obsidian.Obsidian` and `org.telegram.desktop`.
+
+### 2. Fonts
+
+- Waybar, fastfetch and the fuzzel menus use Nerd Font icons. I use **JetBrains Mono Nerd Font**
+  (`ttf-jetbrains-mono-nerd` above); any other [Nerd Font](https://www.nerdfonts.com/) works too.
+- UI font is the default `Adwaita Sans` / `Noto Sans`, emoji and CJK come from Noto.
+- Ghostty uses its built-in font (JetBrains Mono) at size 10.
+
+After installing fonts by hand into `~/.local/share/fonts`, run `fc-cache -f`.
+
+### 3. Shell
+
+```bash
+chsh -s /usr/bin/fish
+```
+
+The prompt is [starship](https://starship.rs) with the default config, `ls` is `lsd`.
+
+### 4. Dotfiles
+
+Clone and link the packages (see [Installation](#installation) below for details):
+
+```bash
+git clone https://github.com/akuraneee/niri-dots ~/niri-dots
+cd ~/niri-dots
+stow */
+```
+
+Then:
+
+- set your outputs in `niri/.config/niri/config.kdl` (names from `niri msg outputs`) and run `niri validate`;
+- edit the `mbs*` aliases in `fish/.config/fish/config.fish` — they use my DDC bus numbers
+  (`ddcutil detect` shows yours).
+
+### 5. Dark mode
+
+Apps are dark through the GNOME portal setting plus the `adw-gtk3-dark` theme for GTK3 apps:
+
+```bash
+gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark'
+```
+
+Qt apps follow it via `QT_QPA_PLATFORMTHEME=gnome`, which is already set in the niri config.
+
+### 6. Wallpaper
+
+Wallpapers are drawn by `awww` (started by niri) and picked with `waypaper` (`Mod+Shift+W`);
+`awww` restores the last one on login. Mine is `13-Ventura-Dark.jpg` from a macOS wallpapers collection
+unpacked into `~/Pictures/macOS-Wallpapers-main` — the folder waypaper opens. Put your own wallpapers
+there or change `folder` in `waypaper/.config/waypaper/config.ini`.
+
+Waypaper writes the current wallpaper back into that `config.ini`, so picking a new one shows up as a
+change in the repo.
+
+### 7. Log in
+
+Log out, pick the **Niri** session in your display manager (I use GDM) and log in.
+`Mod+/` shows all hotkeys. Laptop lid and YubiKey unlock need extra system setup, see [Notes](#notes).
 
 ## Installation
 
