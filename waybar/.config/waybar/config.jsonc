@@ -15,8 +15,7 @@
     "tray",
     "pulseaudio#mic",
     "pulseaudio",
-    "network#ethernet",
-    "network#wifi",
+    "network",
     "bluetooth",
     "custom/swaync",
     "niri/language",
@@ -82,23 +81,17 @@
 
   // Pinned to physical interfaces, otherwise the module picks Mullvad's wg0 tunnel.
   // Ethernet shows only while a cable is connected
-  "network#ethernet": {
-    "interface": "en*",
+  // No fixed interface: follows the default route, so wired shows the
+  // ethernet icon and Wi-Fi shows signal strength.
+  "network": {
     "format-ethernet": "󰈀",
-    "format-linked": "󰈀",
-    "format-disconnected": "",
-    "tooltip-format": "{ifname}  {ipaddr}/{cidr}",
-    "on-click-right": "nm-connection-editor"
-  },
-
-  "network#wifi": {
-    "interface": "wl*",
     "format-wifi": "{icon}",
     "format-linked": "󰤫",
     "format-disconnected": "󰤮",
     "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+    "tooltip-format-ethernet": "{ifname}  {ipaddr}/{cidr}",
     "tooltip-format-wifi": "{essid} ({signalStrength}%)  {ipaddr}/{cidr}",
-    "tooltip-format-disconnected": "Wi-Fi disconnected",
+    "tooltip-format-disconnected": "Disconnected",
     "on-click": "~/.config/niri/scripts/wifi-menu.sh",
     "on-click-right": "nm-connection-editor"
   },
