@@ -20,3 +20,4 @@ if status is-interactive
     alias reboot "echo nuh-uuh"
     alias fakefish "sh ~/Documents/fakefish.sh"
 end
+export PATH="$HOME/.local/bin:$PATH"

@@ -40,7 +40,8 @@ input {
     keyboard {
         xkb {
             layout "us,ru"
-            options "grp:caps_toggle,ctrl:swap_lalt_lctl"
+//            options "grp:caps_toggle,ctrl:swap_lalt_lctl"
+		options "grp:caps_toggle"
         }
         repeat-delay 300
         repeat-rate 50
@@ -244,8 +245,8 @@ binds {
 
     // Screenshots
     Mod+Shift+S { screenshot; }
-    Ctrl+Print  { screenshot-screen; }
-    Alt+Print   { screenshot-window; }
+    Mod+Ctrl+S  { screenshot-screen; }
+    Mod+Ctrl+Shift+S   { screenshot-window; }
 
     // Apps
     Mod+Return hotkey-overlay-title="Terminal"     { spawn "ghostty"; }
