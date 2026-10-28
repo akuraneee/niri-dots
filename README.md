@@ -95,3 +95,30 @@ Press `Mod+/` in niri for the full list.
 - To show an avatar on the lock screen, put an image at `~/.face`.
 - Idle: unlocked — suspend after 15 min; locked — monitors off after 30 s, suspend after 5 min.
   Waking up always lands on the lock screen. Timings live in `hypr/.config/hypr/hypridle.conf`.
+- Laptop lid: niri handles it (`scripts/lock-suspend.sh`), so logind must ignore it, otherwise it
+  suspends before hyprlock is up and the desktop flashes on wake:
+
+  ```sh
+  sudo mkdir -p /etc/systemd/logind.conf.d
+  printf '[Login]\nHandleLidSwitch=ignore\nHandleLidSwitchExternalPower=ignore\n' \
+      | sudo tee /etc/systemd/logind.conf.d/lid.conf
+  sudo systemctl kill -s HUP systemd-logind
+  ```
+- YubiKey unlock: `hypr/.config/hypr/scripts/lock.sh` runs hyprlock and, while it is up, waits for a
+  key (also one plugged in after locking or reset by suspend) and unlocks on touch. hyprlock itself
+  asks only for the password. Both need PAM services (register the key with `pamu2fcfg` first,
+  into `~/.config/Yubico/u2f_keys`):
+
+  ```sh
+  sudo tee /etc/pam.d/hyprlock-password <<'PAM'
+  auth      required                    pam_faillock.so  preauth
+  -auth     [success=2 default=ignore]  pam_systemd_home.so
+  auth      [success=1 default=bad]     pam_unix.so      try_first_pass nullok
+  auth      [default=die]               pam_faillock.so  authfail
+  auth      optional                    pam_permit.so
+  auth      required                    pam_env.so
+  auth      required                    pam_faillock.so  authsucc
+  account   include                     system-local-login
+  PAM
+  echo 'auth required pam_u2f.so' | sudo tee /etc/pam.d/hyprlock-u2f
+  ```

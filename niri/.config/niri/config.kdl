@@ -202,10 +202,12 @@ spawn-at-startup "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 
 
 // ─── Lid ─────────────────────────────────────────────────────────────────────
-// Closing the lid suspends via logind (HandleLidSwitch=suspend, the default);
-// hypridle locks the session first. On open, wake the screen right away.
+// logind ignores the lid (HandleLidSwitch=ignore, see README): niri locks first
+// and suspends only once hyprlock is up, so the desktop never flashes on wake.
+// With an external monitor connected, closing the lid does nothing.
 
 switch-events {
+    lid-close { spawn "sh" "-c" "~/.config/niri/scripts/lock-suspend.sh lid"; }
     lid-open { spawn "niri" "msg" "action" "power-on-monitors"; }
 }
 
@@ -236,7 +238,7 @@ binds {
     Mod+Shift+W   hotkey-overlay-title="Wallpaper"     { spawn "waypaper"; }
     Mod+Shift+T   hotkey-overlay-title="OCR (normcap)" { spawn "normcap" "-l" "eng" "rus"; }
     Mod+I         hotkey-overlay-title="Lock"          { spawn "loginctl" "lock-session"; }
-    Mod+Shift+I   hotkey-overlay-title="Suspend"       { spawn-sh "loginctl lock-session && sleep 1 && systemctl suspend"; }
+    Mod+Shift+I   hotkey-overlay-title="Suspend"       { spawn-sh "~/.config/niri/scripts/lock-suspend.sh"; }
     Mod+Escape    allow-inhibiting=false               { toggle-keyboard-shortcuts-inhibit; }
     Ctrl+Alt+Delete                                    { quit; }
 
